@@ -22,6 +22,8 @@ export async function booksConnect() {
   const collection = process.env.BOOKS_COLLECTION;
   const { mongoClient, db } = await mongoConnect();
   const bookCollection = db.collection(collection);
+  console.log("bookCollection..........", bookCollection);
+
   return { mongoClient, bookCollection };
 }
 
