@@ -7,10 +7,12 @@ describe("given a connection with a MongoDB", () => {
     let mongoClient;
     let booksCollection;
     let first_Id;
+    let initialCount;
     beforeEach(async () => {
       // Arrange
       const result = await booksPopulate();
       first_Id = result.insertedIds["0"];
+      initialCount = result.insertedCount;
       // Act
       ({ mongoClient, booksCollection } = await booksConnect());
     });
@@ -29,7 +31,7 @@ describe("given a connection with a MongoDB", () => {
       //Act
       const result = await booksSrv.getAllBooks();
       //Assert
-      expect(result.length).toBe(9);
+      expect(result.length).toBe(initialCount);
     });
 
     test("should get one item by id", async () => {
@@ -51,6 +53,7 @@ describe("given a connection with a MongoDB", () => {
       //Act
       const result = await booksSrv.insertBook(newBook);
       //Assert
+      expect(result.acknowledged).toBe(true);
       expect(result).toHaveProperty("insertedId");
     });
 

@@ -14,27 +14,26 @@ export async function mongoConnect() {
 
   const mongoClient = new MongoClient(uri);
   const mongoConnect = await mongoClient.connect();
-  const db = mongoConnect.db();
-  return { mongoClient, db };
+  const dbCoders = mongoConnect.db();
+  return { mongoClient, dbCoders };
 }
 
 export async function booksConnect() {
   const collection = process.env.BOOKS_COLLECTION;
-  const { mongoClient, db } = await mongoConnect();
-  const bookCollection = db.collection(collection);
-  console.log("bookCollection..........", bookCollection);
+  const { mongoClient, dbCoders } = await mongoConnect();
+  const booksCollection = dbCoders.collection(collection);
 
-  return { mongoClient, bookCollection };
+  return { mongoClient, booksCollection };
 }
 
 export async function booksPopulate() {
   const collection = process.env.BOOKS_COLLECTION;
-  const { mongoClient, db } = await mongoConnect();
-  const list = await db.listCollections({ name: collection }).toArray();
+  const { mongoClient, dbCoders } = await mongoConnect();
+  const list = await dbCoders.listCollections({ name: collection }).toArray();
   if (list.length) {
-    await db.dropCollection(collection);
+    await dbCoders.dropCollection(collection);
   }
-  const bookCollection = db.collection(collection);
+  const bookCollection = dbCoders.collection(collection);
   const result = await bookCollection.insertMany(dataBooks.books);
   mongoClient.close();
   return result;
