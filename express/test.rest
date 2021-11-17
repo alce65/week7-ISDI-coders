@@ -1,0 +1,28 @@
+GET http://localhost:3001/tasks
+
+###
+GET http://localhost:3001/tasks/1
+
+###
+
+POST  http://localhost:3001/tasks
+content-type: application/json
+
+{
+  "title": "Tarea adicional",
+  "responsable": "Manolo"
+}
+
+###
+PATCH  http://localhost:3001/tasks/1
+content-type: application/json
+
+{
+  "responsable": "Benita"
+}
+
+###
+DELETE http://localhost:3001/tasks/1
+
+###
+DELETE http://localhost:3001/tasks/3
