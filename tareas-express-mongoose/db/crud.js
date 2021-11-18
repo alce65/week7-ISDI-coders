@@ -1,7 +1,7 @@
 import { tasksConnect } from "./db.js";
 import { ObjectId } from "mongodb";
 
-export async function getAllBooks(Task) {
+export async function getAllTasks(Task) {
   // const { mongoClient, tasksCollection } = await tasksConnect();
 
   // const cursor = tasksCollection.find();
@@ -11,37 +11,45 @@ export async function getAllBooks(Task) {
   return result;
 }
 
-export async function getBookById(Task, id) {
-  const dbId = ObjectId(id);
+export async function getTaskById(Task, id) {
+  /* const dbId = ObjectId(id);
   const { mongoClient, tasksCollection } = await tasksConnect();
   const result = await tasksCollection.findOne({ _id: dbId });
-  mongoClient.close();
+  mongoClient.close(); */
+  // const result = await Task.find({ _id: id });
+  const result = await Task.findById(id);
   return result;
 }
 
-export async function insertBook(Task, book) {
-  const { mongoClient, tasksCollection } = await tasksConnect();
-  const result = await tasksCollection.insertOne(book);
-  mongoClient.close();
+export async function insertTask(Task, task) {
+  /* const { mongoClient, tasksCollection } = await tasksConnect();
+  const result = await tasksCollection.insertOne(task);
+  mongoClient.close(); */
+  task.isCompleted = task.isCompleted ? task.isCompleted : false;
+  const newTask = new Task(task);
+  newTask.algo();
+  const result = await newTask.save();
   return result;
 }
 
-export async function updateBook(Task, id, partialBook) {
-  const dbId = ObjectId(id);
+export async function updateTask(Task, id, partialTask) {
+  /* const dbId = ObjectId(id);
   const { mongoClient, tasksCollection } = await tasksConnect();
   const result = await tasksCollection.updateOne(
     { _id: dbId },
-    { $set: { ...partialBook } }
+    { $set: { ...partialTask } }
   );
-  mongoClient.close();
+  mongoClient.close(); */
+  const result = await Task.findByIdAndUpdate(id, partialTask, { new: true });
   return result;
 }
 
-export async function deleteBook(Task, id) {
-  const dbId = ObjectId(id);
+export async function deleteTask(Task, id) {
+  /* const dbId = ObjectId(id);
   const { mongoClient, tasksCollection } = await tasksConnect();
   const result = await tasksCollection.deleteOne({ _id: dbId });
-  mongoClient.close();
+  mongoClient.close(); */
+  const result = await Task.findByIdAndDelete(id);
   return result;
 }
 

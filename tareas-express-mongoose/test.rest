@@ -10,19 +10,19 @@ content-type: application/json
 
 {
   "title": "Tarea adicional",
-  "responsable": "Manolo"
+  "responsible": "Raul"
 }
 
 ###
-PATCH  http://localhost:3030/tasks/619516dd75bcdf9b77e6690c
+PATCH  http://localhost:3030/tasks/61963aeb39eeac259eace6a5
 content-type: application/json
 
 {
-  "responsable": "Benita"
+  "responsible": "Benita"
 }
 
 ###
-DELETE http://localhost:3030/tasks/6195286244ba611e93fb9671
+DELETE http://localhost:3030/tasks/61963b25b0fab673511beb6f
 
 ###
 DELETE http://localhost:3030/tasks/3

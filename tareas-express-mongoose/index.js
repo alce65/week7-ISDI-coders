@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import morgan from "morgan";
 import { tasksConnect } from "./db/db.js";
 import * as crud from "./db/crud.js";
@@ -36,37 +36,52 @@ app.get("/", (req, res) => {
 });
 
 app.get("/tasks", (req, res) => {
-  crud.getAllBooks(Task).then((resp) => {
+  crud.getAllTasks(Task).then((resp) => {
     res.send(resp);
   });
 });
 
 app.post("/tasks", (req, res) => {
-  crud.insertBook(Task, req.body).then((result) => {
-    const newTask = { ...req.body, _id: result.insertedId };
-    res.json(newTask);
+  crud.insertTask(Task, req.body).then((result) => {
+    // const newTask = { ...req.body, _id: result.insertedId };
+    console.log(result);
+    res.json(result);
   });
 });
 
 app.get("/tasks/:id", (req, res) => {
-  crud.getBookById(Task, req.params.id).then((result) => res.json(result));
+  crud.getTaskById(Task, req.params.id).then((result) => res.json(result));
 });
 
 app.patch("/tasks/:id", (req, res) => {
   crud
-    .updateBook(Task, req.params.id, req.body)
-    .then((result) => {
-      return crud.getBookById(req.params.id);
-    })
+    .updateTask(Task, req.params.id, req.body)
+    /* .then((result) => {
+      return crud.getTaskById(req.params.id);
+    }) */
     .then((updatedTask) => {
       res.json(updatedTask);
     });
 });
 
-app.delete("/tasks/:id", (req, res) => {
-  crud.deleteBook(Task, req.params.id).then((result) => {
-    res.json({ deletedId: req.params.id });
-  });
+app.delete("/tasks/:id", (req, res, next) => {
+  crud
+    .deleteTask(Task, req.params.id)
+    .then((result) => {
+      if (result) {
+        res.status(202).json({ deletedId: req.params.id });
+      } else {
+        res.status(404).json({ message: "Not found" });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+app.use((err, req, res, next) => {
+  console.log("Gestión e errores");
+  res.status(406).json({ name: err.name, msg: err.message });
 });
 
 app.listen(port, () => {
