@@ -16,7 +16,9 @@
     "express": "^4.17.1",
     "inquirer": "^8.2.0",
     "jest": "^27.3.1",
-    "mongodb": "^4.1.4"
+    "mongodb": "^4.1.4",
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0"
   },
   "babel": {
     "env": {
