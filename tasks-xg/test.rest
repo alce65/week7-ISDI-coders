@@ -14,15 +14,15 @@ content-type: application/json
 }
 
 ###
-PATCH  http://localhost:3030/tasks/61963aeb39eeac259eace6a5
+PATCH  http://localhost:3030/tasks/619516dd75bcdf9b77e6690c
 content-type: application/json
 
 {
-  "responsible": "Benita"
+  "responsible": "Juanita"
 }
 
 ###
-DELETE http://localhost:3030/tasks/61977336c0d034984828bce7
+DELETE http://localhost:3030/tasks/61963b25b0fab673511beb6f
 
 ###
 DELETE http://localhost:3030/tasks/3

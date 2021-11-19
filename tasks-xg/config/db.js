@@ -12,4 +12,4 @@ async function mongoConnect() {
   return;
 }
 
-module.export = mongoConnect;
+module.exports = mongoConnect;

@@ -3,11 +3,12 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const mongoConnect = require("./config/db.js");
-const tasksRouter = require("./routes/tasks.js");
-const usersRouter = require("./routes/users.js");
+
+const tasksRouter = require("./routes/tasks.router.js");
+const usersRouter = require("./routes/users.router.js");
 
 const app = express();
-await mongoConnect();
+mongoConnect();
 
 app.use(morgan("dev"));
 app.use(express.json());

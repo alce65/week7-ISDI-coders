@@ -9,7 +9,7 @@ const {
   getTaskById,
   updateTask,
   deleteTask,
-} = require("../controllers/tasks.js");
+} = require("../controllers/tasks.controller.js");
 
 router.get("/", getAllTasks);
 router.post("/", addTask);
