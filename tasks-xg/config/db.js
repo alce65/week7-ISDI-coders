@@ -5,6 +5,7 @@ async function mongoConnect() {
   const user = process.env.DBUSER;
   const passwd = process.env.DBPASSWD;
   let databaseName;
+
   console.log("NODE_ENV", process.env.NODE_ENV);
   if (process.env.NODE_ENV === "test") {
     databaseName = process.env.DBNAME_TEST;
