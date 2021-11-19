@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env DEBUG=tasks-xg:* PORT=3030 nodemon ./bin/www",
-    "test": "jest --watchAll --collect-coverage"
+    "start": "cross-env DEBUG=tasks-xg:* PORT=3030 NODE_ENV=dev nodemon ./bin/www",
+    "start:build": "cross-env DEBUG=tasks-xg:* PORT=3030 NODE_ENV=prod nodemon ./bin/www",
+    "test": "cross-env NODE_ENV=test jest --watchAll --collect-coverage"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -16,6 +17,7 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "supertest": "^6.1.6"
   }
 }

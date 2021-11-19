@@ -1,7 +1,7 @@
 const controller = require("./tasks.controller.js");
 const Task = require("../models/task.model.js");
 
-jest.mock("../models/task");
+jest.mock("../models/task.model");
 
 describe("Given getAllTasks", () => {
   describe("When is triggered", () => {
